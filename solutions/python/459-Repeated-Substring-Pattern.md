@@ -64,3 +64,41 @@ memory: O(n) since creating wheel concatenates two strings with length n so O(2n
 
 
 #TODO: write divisor solution
+
+## Approach
+
+My first thought was to create a list of all the possible substrings and return true if any of them can be assembled to the string `s`.
+
+While this passed the test, runtime was slower than most submissions so I tried to find a way to not need to check evey possible substring each time and assemble them.
+
+Goal: reduce runtime
+
+An acceptable substring that can be the pattern needs its length to be completely divisible by the length of `s`.
+
+The largest a substring can be to be repeated at least one is half the size of `s`.
+
+if `p*k = s` p being the pattern substring and k the number the times p is repeated then for at least `k > 1`
+`s/p > 1` or `s > p` and if `k=2` then `2p = s` or `p = s/2`
+
+I can iterate through half the characters in `s`, check that the substring length is divisible by `s` and check if the pattern times the expected `k` is equal to `s`. Return False otherwise
+
+## Code
+
+``` python
+class Solution:
+    def repeatedSubstringPattern(self, s: str) -> bool:
+
+        for index in range(1, len(s)//2 + 1):
+            if len(s) % index == 0:
+                pattern = s[:index]
+                if s == pattern * (len(s) // index):
+                    return True
+
+        return False
+```
+
+## Runtime/Memory
+
+Runtime: O(n*sqrt(n)) There are two things the functions is doing. It is iterating through half the list so n/2 -> n removing the constant and within each iteration, the pattern is assembled with divisor which a string can have 2 * sqrt(n) divisors.
+
+Memory: O(n) concatenates pattern using up to n/2 length of `s`
