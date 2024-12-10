@@ -9,7 +9,7 @@ All solutions are orgainzed by the programming language used to solve the proble
 For example my Python solution to Two Sum would be under
 `solutions > python > 1-Two-Sum.md`
 
-### How to read problem
+## How to read problem
 I documented each problem in md files since I could document my thoughts and code in one file.
 
 In the problem I listed:
